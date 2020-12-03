@@ -1,3 +1,9 @@
+async function prayerTime (latitude, longtitude){
+      const data = await fetch(`http://api.aladhan.com/v1/calendar?latitude=${latitude}&longitude=${longtitude}&method=2&month=4&year=2017`)
+      const dataJson = await data.json();
+      console.log(dataJson.data[0].timings)
+}
+
 index()
 function index () {
       let app = document.getElementById('app');
@@ -5,6 +11,7 @@ function index () {
       h3.innerHTML = 'Prayer Time'
       app.appendChild(h3)
       userLocation()
+      // prayerTime()
 }
 function userLocation(){
       if(!navigator.geolocation){
@@ -15,7 +22,7 @@ function userLocation(){
 }
 
 function succes(position){
-      console.log(position);
+      prayerTime(position.coords.latitude , position.coords.latitude);
 }
 
 function error (){
