@@ -1,9 +1,28 @@
 async function prayerTime (latitude, longtitude){
-      const data = await fetch(`http://api.aladhan.com/v1/calendar?latitude=${latitude}&longitude=${longtitude}&method=2`)
+      const data = await fetch(`http://api.aladhan.com/v1/calendar?latitude=${latitude}&longitude=${longtitude}&method=4`)
       const dataJson = await data.json();
       let waktu = new Date()
       let today = waktu.getDate() - 1;
-      console.log(dataJson.data[today])
+      let datanya = dataJson.data[today].timings;
+      console.log(datanya)
+      
+      let app = document.getElementById('app')
+      let table = document.createElement('table');
+      let tableBody = document.createElement('tbody');
+
+      for (i in datanya){
+            let row = table.insertRow();
+            let name = row.insertCell(0);
+            let time = row.insertCell(1);
+
+            name.innerHTML = i;
+            time.innerHTML = datanya[i];
+
+            tableBody.appendChild(row);
+            
+      }
+      table.appendChild(tableBody)
+      app.appendChild(table)
 }
 
 index()
@@ -25,7 +44,7 @@ function userLocation(){
 }
 
 function succes(position){
-      prayerTime(position.coords.latitude , position.coords.latitude);
+      prayerTime(-7.797068 , 110.370529);
 }
 
 function error (){
